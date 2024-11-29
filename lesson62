@@ -1,0 +1,228 @@
+ ВОПРОСЫ И ЗАДАНИЯ:
+
+1. Массив — это структура данных, которая позволяет хранить набор значений одного типа в одном объекте. Массивы нужны для удобного хранения и управления большими объемами данных, упрощения доступа к элементам и выполнения операций над группами значений без необходимости создавать отдельные переменные для каждого значения.
+
+2. Объявление массивов необходимо для определения их размеров и типов элементов, которые они будут хранить. Это позволяет компьютеру выделить необходимую память и эффективно управлять данными.
+
+3.  На школьном алгоритмическом языке: массив A[1..n] – это массив размером n.
+ Паскале: pascal var
+A: array[1..n] of Integer; // массив целых чисел размером n
+
+4. Элементы массива расположены в памяти рядом для повышения производительности. Это позволяет использовать кэширование процессора, уменьшает время доступа к данным и делает операции над массивами более эффективными.
+
+5. К элементу массива обращаются через его индекс. Например, для массива A можно обратиться к элементу с индексом i, используя A[i].
+
+6. Да, в языках программирования, таких как C или C++, индексы массива могут начинаться с 0. Однако в некоторых языках, например, в Паскале, индексы обычно начинаются с 1. Индексы также могут начинаться с отрицательных значений, если это поддерживается языком программирования, но это не является стандартной практикой.
+
+7. Использование константы для размера массива позволяет избежать ошибок, упрощает управление изменениями в коде и делает его более читабельным. Константы также позволяют компилятору оптимизировать память и производительность.
+
+8. 
+`pascal
+var
+A: array[1..n] of Integer;
+i: Integer;
+begin
+// Ввод массива
+for i := 1 to n do
+begin
+ReadLn(A[i]);
+end;
+
+// Вывод массива
+for i := 1 to n do
+begin
+WriteLn(A[i]);
+end;
+end;
+`
+
+9. 
+`pascal
+var
+A: array[1..n] of Integer;
+i: Integer;
+begin
+Randomize; // Инициализация генератора случайных чисел
+for i := 1 to n do
+begin
+A[i] := Random(101) + 100; // Генерация числа от 100 до 200
+end;
+end;
+``
+
+
+ЗАДАЧИ:
+
+1. 
+``pascal
+var
+A: array[1..N] of Integer;
+firstElement, difference, i: Integer;
+begin
+Write('Введите первый элемент: ');
+ReadLn(firstElement);
+Write('Введите разность: ');
+ReadLn(difference);
+
+for i := 1 to N do
+begin
+A[i] := firstElement + (i - 1) * difference;
+end;
+end;
+
+
+2. pascal
+var
+A: array[1..N] of Integer;
+i: Integer;
+begin
+for i := 1 to N do
+begin
+A[i] := Trunc(Power(2, i)); // Power - функция возведения в степень
+end;
+end;
+
+3. 
+pascal
+var
+A: array[1..N] of Integer;
+i: Integer;
+begin
+A[1] := 0;
+A[2] := 1;
+
+for i := 3 to N do
+begin
+A[i] := A[i - 1] + A[i - 2];
+end;
+end;
+
+4. 
+pascal
+var
+A: array[1..N] of Integer;
+i, j, temp: Integer;
+begin
+// Заполняем массив числами от 1 до N
+for i := 1 to N do
+A[i] := i;
+
+// Перемешиваем массив
+Randomize;
+for i := N downto 2 do
+begin
+j := Random(i) + 1;
+temp := A[i];
+A[i] := A[j];
+A[j] := temp;
+end;
+end;
+
+5. 
+pascal
+var
+A: array[1..N] of Integer;
+i, j, temp: Integer;
+begin
+// Заполняем массив числами от 1 до N
+for i := 1 to N do
+A[i] := i;
+
+// Устанавливаем первое число равным 5
+A[1] := 5;
+
+// Перемешиваем остальные элементы (1..N, кроме 5)
+Randomize;
+for i := N downto 2 do
+begin
+if A[i] = 5 then continue;
+j := Random(i) + 1;
+
+// Обмен значениями
+temp := A[i];
+A[i] := A[j];
+A[j] := temp;
+end;
+end;
+
+6. 
+pascal
+var
+A: array[1..N] of Integer;
+evenCount, oddCount, i: Integer;
+begin 
+evenCount := 0;
+oddCount := 0;
+
+Randomize;
+for i := 1 to N do
+begin
+A[i] := Random(81) + 20; // Генерация числа от 20 до 100
+
+if A[i] mod 2 = 0 then
+evenCount := evenCount + 1
+else
+oddCount := oddCount + 1;
+end;
+
+WriteLn('Четные: ', evenCount, ', Нечетные: ', oddCount);
+end;
+
+7. 
+pascal
+var
+A: array[1..N] of Integer;
+count: Integer;
+i, secondLastDigit: Integer;
+begin
+count := 0;
+
+Randomize;
+for i := 1 to N do
+begin
+A[i] := Random(1001) + 1000; // Генерация числа от 1000 до 2000
+
+secondLastDigit := (A[i] div 10) mod 10; // Получаем вторую с конца цифру
+if secondLastDigit mod 2 = 0 then
+count := count + 1;
+end;
+
+WriteLn('Количество элементов с четной второй цифрой с конца: ', count);
+end;
+
+8. 
+pascal
+var
+A: array[1..N] of Integer;
+sumLower, sumHigher: Integer;
+countLower, countHigher: Integer;
+i: Integer;
+begin
+sumLower := 0;
+sumHigher := 0;
+countLower := 0;
+countHigher := 0;
+
+Randomize;
+for i := 1 to N do
+begin
+A[i] := Random(101); // Генерация числа от 0 до 100
+
+if A[i] < 50 then
+begin
+sumLower := sumLower + A[i];
+countLower := countLower + 1;
+end
+else
+begin
+sumHigher := sumHigher + A[i];
+countHigher := countHigher + 1;
+end;
+end;
+
+if countLower > 0 then
+WriteLn('Среднее значение элементов < 50: ', sumLower / countLower);
+if countHigher > 0 then
+WriteLn('Среднее значение элементов >= 50: ', sumHigher / countHigher);
+end;
+``
