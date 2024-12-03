@@ -1,0 +1,424 @@
+1. 
+Матрицы — это двумерные массивы элементов, упорядоченных в строки и столбцы. Они используются для решения различных задач в математике, физике, информатике и экономике. Матрицы могут представлять систем уравнений, преобразования, графику, а также использоваться в алгоритмах машинного обучения и обработки данных.
+
+2. 
+- Массив — это структура данных, которая может хранить элементы одного типа и может быть одномерным или многомерным. Он не имеет строгого порядка, как это делает матрица.
+- Матрица — это специфический тип двумерного массива, где элементы организованы в строки и столбцы. Каждая матрица всегда имеет фиксированные размеры (количество строк и столбцов).
+
+3. 
+В большинстве языков программирования (например, Python, C) матрицы индексируются как [строка][столбец]. Однако в некоторых случаях, как в математике, может быть удобно считать первый индекс как номер столбца, а второй как номер строки. Это зависит от контекста, но общепринятая практика — использовать [строка][столбец].
+
+4. 
+В большинстве языков программирования индексы матриц начинаются с 0 (нулевой индекс) и идут до n-1 (где n — это размерность). Таким образом, нулевые индексы допустимы, а отрицательные индексы, как правило, не применяются в стандартных реализациях (хотя в некоторых языках, например, Python, можно использовать отрицательные индексы для обращения к элементам с конца).
+
+5. 
+- Главная диагональ — это элементы матрицы, которые идут от верхнего левого угла (позиция [0][0]) до нижнего правого угла (позиция [n][n] для квадратной матрицы).
+- Побочная диагональ — это элементы, которые идут от верхнего правого угла (позиция [0][n-1]) до нижнего левого угла (позиция [n-1][0]) для квадратной матрицы.
+
+6. 
+- Для суммирования элементов главной диагонали достаточно одного цикла, так как для каждой строки i элемент на главной диагонали будет на позиции [i][i].
+- Для суммирования элементов под главной диагональю нужен вложенный цикл, так как необходимо учитывать, что для каждой строки i элементы под главной диагональю будут находиться в позициях от [i+1][0] до [n-1][i].
+
+### Подготовьте сообщение
+
+а) «Матрицы в языке Си»
+
+В языке Си матрицы объявляются как массивы с двумя индексами. Каждый элемент матрицы можно обращаться по его строковому и столбцовому индексам. Например, для объявления матрицы 3x3 в Си можно использовать:
+``c
+int matrix[3][3];
+``
+Работа с матрицами в Си часто требует манипуляций с указателями и циклов для обхода элементов. Библиотеки, такие как <stdio.h>, помогают в выводе и вводе данных.
+
+б) «Матрицы в языке Python»
+
+В языке Python матрицы обычно представляются как список списков. Например, матрицу 3x3 можно объявить так:
+
+matrix = [[0]*3 for _ in range(3)]
+
+Python также предлагает множество библиотек для работы с матрицами, таких как NumPy, которые содержат функции для выполнения различных операций над матрицами (например, умножение, сложение, транспонирование и т. д.).
+
+### Задачи
+
+1.
+import random
+
+def find_min_max(matrix):
+    min_value = float('inf')
+    max_value = float('-inf')
+    min_index = (-1, -1)
+    max_index = (-1, -1)
+
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if matrix[i][j] < min_value:
+                min_value = matrix[i][j]
+                min_index = (i, j)
+            if matrix[i][j] > max_value:
+                max_value = matrix[i][j]
+                max_index = (i, j)
+
+    return (min_value, min_index), (max_value, max_index)
+
+# Пример использования
+rows, cols = 3, 4
+matrix = [[random.randint(1, 100) for _ in range(cols)] for _ in range(rows)]
+for row in matrix:
+    print(row)
+
+min_elem, max_elem = find_min_max(matrix)
+print(f"Минимальный элемент: {min_elem[0]} по индексам {min_elem[1]}")
+print(f"Максимальный элемент: {max_elem[0]} по индексам {max_elem[1]}")
+
+
+2.
+def find_min_max_even(matrix):
+    even_values = [(float('inf'), (-1, -1)), (float('-inf'), (-1, -1))]
+    
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if matrix[i][j] > 0 and matrix[i][j] % 2 == 0:
+                if matrix[i][j] < even_values[0][0]:
+                    even_values[0] = (matrix[i][j], (i, j))
+                if matrix[i][j] > even_values[1][0]:
+                    even_values[1] = (matrix[i][j], (i, j))
+
+    return even_values
+
+# Пример использования
+matrix = [[random.randint(-50, 50) for _ in range(cols)] for _ in range(rows)]
+for row in matrix:
+    print(row)
+
+min_even, max_even = find_min_max_even(matrix)
+print(f"Минимальный четный элемент: {min_even[0]} по индексам {min_even[1]}" if min_even[0] != float('inf') else "Четные положительные элементы отсутствуют.")
+print(f"Максимальный четный элемент: {max_even[0]} по индексам {max_even[1]}" if max_even[0] != float('-inf') else "Четные положительные элементы отсутствуют.")
+
+
+3.
+def row_with_max_sum(matrix):
+    max_sum = float('-inf')
+    max_row_index = -1
+
+    for i in range(len(matrix)):
+        row_sum = sum(matrix[i])
+        if row_sum > max_sum:
+            max_sum = row_sum
+            max_row_index = i
+            
+    return matrix[max_row_index]
+
+# Пример использования
+matrix = [[random.randint(1, 10) for _ in range(cols)] for _ in range(rows)]
+for row in matrix:
+    print(row)
+
+max_row = row_with_max_sum(matrix)
+print(f"Строка с наибольшей суммой: {max_row}")
+
+
+4.
+def column_with_min_sum(matrix):
+    min_sum = float('inf')
+    min_col_index = -1
+    
+    cols = len(matrix[0])
+    for j in range(cols):
+        col_sum = sum(matrix[i][j] for i in range(len(matrix)))
+        if col_sum < min_sum:
+            min_sum = col_sum
+            min_col_index = j
+            
+    return [matrix[i][min_col_index] for i in range(len(matrix))]
+
+# Пример использования
+matrix = [[random.randint(1, 10) for _ in range(cols)] for _ in range(rows)]
+for row in matrix:
+    print(row)
+
+min_col = column_with_min_sum(matrix)
+print(f"Столбец с наименьшей суммой: {min_col}")
+
+
+5.
+def zero_above_diagonal(matrix):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if j > i:  # Это условие проверяет, находится ли элемент выше главной диагонали
+                matrix[i][j] = 0
+
+# Пример использования
+matrix = [[random.randint(1, 10) for _ in range(cols)] for _ in range(rows)]
+print("Исходная матрица:")
+for row in matrix:
+    print(row)
+
+zero_above_diagonal(matrix)
+print("Матрица после обнуления элементов выше главной диагонали:")
+for row in matrix:
+    print(row)
+
+6. 
+import random
+
+def zero_above_anti_diagonal(size):
+    # Инициализация матрицы
+    matrix = [[random.randint(1, 10) for _ in range(size)] for _ in range(size)]
+    
+    print("Исходная матрица:")
+    for row in matrix:
+        print(row)
+
+    for i in range(size):
+        for j in range(size):
+            if j < size - i - 1:  # Проверяем, находится ли элемент выше побочной диагонали
+                matrix[i][j] = 0
+
+    print("Матрица после обнуления элементов выше побочной диагонали:")
+    for row in matrix:
+        print(row)
+
+# Пример использования
+size = 5  # Размер матрицы
+zero_above_anti_diagonal(size)
+
+
+ 7. 
+
+import random
+
+def fill_matrix_and_mark(size):
+    matrix = [[random.randint(1, 10) for _ in range(size)] for _ in range(size)]
+
+    print("Исходная матрица:")
+    for row in matrix:
+        print(row)
+
+    # Заполняем заданные элементы числом 99
+    indices_to_mark = [(0, 6), (1, 5), (2, 4), (3, 3), (4, 2), (5, 1), (6, 0)]  # Пример координат
+    for i, j in indices_to_mark:
+        if 0 <= i < size and 0 <= j < size:
+            matrix[i][j] = 99
+
+    print("Матрица после отметки 99 на заданных позициях:")
+    for row in matrix:
+        print(row)
+
+# Пример использования
+fill_matrix_and_mark(7)
+
+
+ 8. 
+#### Заполнение по спирали
+def fill_spiral(n, m):
+    matrix = [[0] * m for _ in range(n)]
+    num = 1
+    left, right = 0, m - 1
+    top, bottom = 0, n - 1
+    
+    while left <= right and top <= bottom:
+        for i in range(left, right + 1):
+            matrix[top][i] = num
+            num += 1
+        top += 1
+
+        for i in range(top, bottom + 1):
+            matrix[i][right] = num
+            num += 1
+        right -= 1
+
+        if top <= bottom:
+            for i in range(right, left - 1, -1):
+                matrix[bottom][i] = num
+                num += 1
+            bottom -= 1
+
+        if left <= right:
+            for i in range(bottom, top - 1, -1):
+                matrix[i][left] = num
+                num += 1
+            left += 1
+
+    return matrix
+
+# Пример использования
+spiral_matrix = fill_spiral(5, 5)
+for row in spiral_matrix:
+    print(row)
+
+
+#### Заполнение змейкой
+def fill_snake(n, m):
+    matrix = [[0] * m for _ in range(n)]
+    
+    for i in range(n):
+        for j in range(m):
+            if i % 2 == 0:
+                matrix[i][j] = (i * m) + j + 1
+            else:
+                matrix[i][m - j - 1] = (i * m) + j + 1
+
+    return matrix
+
+# Пример использования
+snake_matrix = fill_snake(5, 5)
+for row in snake_matrix:
+    print(row)
+
+
+ 9. 
+
+def transpose_matrix(matrix):
+    size = len(matrix)
+    transposed = [[0] * size for _ in range(size)]
+    
+    for i in range(size):
+        for j in range(size):
+            transposed[j][i] = matrix[i][j]
+
+    return transposed
+
+# Пример использования
+original_matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print("Исходная матрица:")
+for row in original_matrix:
+    print(row)
+
+transposed_matrix = transpose_matrix(original_matrix)
+print("Транспонированная матрица:")
+for row in transposed_matrix:
+    print(row)
+
+
+10. 
+def convert_to_bw(pixels):
+    total_brightness = sum(sum(row) for row in pixels)
+    num_pixels = len(pixels) * len(pixels[0])
+    average_brightness = total_brightness / num_pixels
+
+    bw_image = [[0 if pixel < average_brightness else 255 for pixel in row] for row in pixels]
+    return bw_image
+
+# Пример использования
+image_matrix = [
+    [100, 150, 200],
+    [50, 255, 128],
+    [0, 255, 200]
+]
+
+bw_image = convert_to_bw(image_matrix)
+print("Чёрно-белый рисунок:")
+for row in bw_image:
+    print(row)
+
+
+11. 
+
+def reflect_vertically(matrix):
+    return matrix[::-1]
+
+# Пример использования
+image = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+reflected_image = reflect_vertically(image)
+print("Отражённый рисунок:")
+for row in reflected_image:
+    print(row)
+
+
+12. 
+
+def rotate_matrix_90_degrees(matrix):
+    return [list(reversed(col)) for col in zip(*matrix)]
+
+# Пример использования
+image = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+rotated_image = rotate_matrix_90_degrees(image)
+print("Рисунок после поворота на 90 градусов вправо:")
+for row in rotated_image:
+    print(row)
+
+
+ 13. 
+
+def print_board(board):
+    for row in board:
+        print(" | ".join(row))
+        print("-" * 9)
+
+def check_winner(board):
+    # Проверка строк и столбцов
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] != " ":
+            return True
+        if board[0][i] == board[1][i] == board[2][i] != " ":
+            return True
+    # Проверка диагоналей
+    if board[0][0] == board[1][1] == board[2][2] != " ":
+        return True
+    if board[0][2] == board[1][1] == board[2][0] != " ":
+        return True
+    return False
+
+def tic_tac_toe():
+    board = [[" " for _ in range(3)] for _ in range(3)]
+    turns = 0
+    while turns < 9:
+        print_board(board)
+        player = "X" if turns % 2 == 0 else "O"
+        print(f"Player {player}, введите строку и столбец через пробел (0, 1 или 2):")
+        row, col = map(int, input().split())
+        if board[row][col] == " ":
+            board[row][col] = player
+            if check_winner(board):
+                print_board(board)
+                print(f"Player {player} выиграл!")
+                return
+            turns += 1
+        else:
+            print("Эта ячейка занята. Попробуйте снова.")
+    print("Ничья!")
+
+# Запуск игры
+tic_tac_toe()
+
+
+14. 
+def count_islands(matrix):
+    def dfs(i, j):
+        if 0 <= i < len(matrix) and 0 <= j < len(matrix[0]) and matrix[i][j] == 1:
+            matrix[i][j] = 0  # Пометить как посещенный
+            # Исследовать все 4 направления
+            dfs(i + 1, j)
+            dfs(i - 1, j)
+            dfs(i, j + 1)
+            dfs(i, j - 1)
+
+    island_count = 0
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if matrix[i][j] == 1:
+                island_count += 1
+                dfs(i, j)
+
+    return island_count
+
+# Пример использования
+map_matrix = [
+    [0, 1, 0, 0, 1],
+    [0, 1, 0, 1, 1],
+    [0, 0, 0, 0, 0],
+    [1, 0, 1, 0, 0],
+    [1, 1, 0, 0, 0]
+]
+
+islands_count = count_islands(map_matrix)
+print(f"Количество островов: {islands_count}")
