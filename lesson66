@@ -1,0 +1,325 @@
+1. 
+Символьная строка — это последовательность символов, которая может включать буквы, цифры, специальные символы и пробелы. Она обычно используется для хранения текстовой информации.
+
+2. 
+Массивы символов фиксированной длины могут приводить к проблемам с памятью и управлением строками — например, они ограничены по размеру и не могут динамически изменять свою длину. В отличие от этого, строки, как правило, имеют встроенные функции для управления и обработки, что делает их более удобными для работы.
+
+3. 
+- В школьном алгоритмическом языке строки обычно объявляются как переменные типа string, за которыми следует именование, например: s: string.
+- В Паскале строки объявляются с использованием ключевого слова string (или array of char для массивов символов), а также можно использовать конструкцию string[n], где n — максимальная длина строки.
+
+4. 
+Обращение к элементу строки осуществляется по индексу, который начинается с 1 в Паскале и с 0 в большинстве других языков (например, C или Python). Например, в Паскале s[1] даст первый символ строки s.
+
+5. 
+Длина строки вычисляется с помощью соответствующих функций. В Паскале используется функция Length, например, Length(s) вернёт длину строки s. В языке C для массива символов длину можно определить с помощью функции strlen.
+
+6. 
+Операция «+» применяется для конкатенации (объединения) строк. Например, в Паскале s1 + s2 создаст новую строку, которая будет результатом объединения s1 и s2.
+
+7. 
+- Конкатенация: +
+- Извлечение подстроки: Copy(s, pos, len)
+- Поиск подстроки: Pos(substr, s)
+- Замена: StringReplace(s, old, new, [rfReplaceAll]) (в других языках)
+- Преобразование в верхний/нижний регистр: UpperCase(s) / LowerCase(s)
+
+8. 
+В большинстве языков, если функция поиска не находит образец, она возвращает ноль или значение, указывающее на отсутствие. Например, в Паскале можно проверить, равно ли значение Pos(substr, s) нулю.
+
+9. 
+Средства школьного алгоритмического языка обыкновенно менее функциональны и могут не поддерживать сложные операции со строками. В Паскале существует более широкий набор встроенных функций и поддержка работы со строками более развита.
+
+10. 
+В Паскале используется функция StrToInt для преобразования строки в число и IntToStr для преобразования числа в строку.
+
+11. 
+Преобразование может быть неудачным, если строка содержит символы, не являющиеся цифрами. В Паскале можно использовать обработку исключений для выявления неудач при преобразовании.
+
+12. 
+Рекурсивный перебор — это метод поиска решения, при котором функция вызывает саму себя с подзадачами, пока не достигнет базового случая. Это часто используется в задачах, где требуется проверить все возможные комбинации.
+
+13.
+- Рекурсивный метод: Решение задачи про вычисление факториала. Например, fact(n) = n * fact(n-1), пока не достигнем fact(0) = 1.
+- Нерекурсивный метод: Использование циклов для той же задачи, например, с помощью цикла for для умножения чисел от 1 до n накапливая их в переменной.
+
+
+Задачи
+
+1. 
+def swap_letters(s):
+    return s.replace('а', 'б').replace('а'.upper(), 'б'.upper()).replace('б', 'а').replace('б'.upper(), 'а'.upper())
+
+input_string = input("Введите строку: ")
+result = swap_letters(input_string)
+print("Результат:", result)
+
+
+2.
+def is_palindrome(s):
+    return s == s[::-1]
+
+input_string = input("Введите строку: ")
+if is_palindrome(input_string):
+    print("Строка является палиндромом.")
+else:
+    print("Строка не является палиндромом.")
+
+
+3.
+file_path = input("Введите адрес файла: ")
+parts = file_path.split('/')
+for part in parts:
+    print(part)
+
+
+4.
+expression = input("Введите сумму натуральных чисел: ")
+result = eval(expression)  # Используйте eval с осторожностью, только в безопасных условиях
+print("Результат вычисления:", result)
+
+
+5.
+full_name = input("Введите ФИО (фамилия, имя, отчество): ")
+name_parts = full_name.split()
+initials = f"{name_parts[1][0]}.{name_parts[2][0]}."
+last_name = name_parts[0]
+print(f"{initials} {last_name}")
+
+
+6. 
+
+Функция ReplaceBad предназначена для замены всех вхождений одной подстроки на другую в строке. Однако существует некорректный случай, который может вызвать проблемы. Рассмотрим следующий пример:
+#### Входные данные:
+``plaintext
+s0 = "abcdabc"
+sold = "abc"
+sNew = "xyz"
+
+
+#### Ожидаемый результат:
+Ожидается, что функция вернёт "xyzxyz", так как должна заменить все вхождения "abc" на "xyz".
+
+#### Проблема:
+Если в sNew также будет содержаться sold, например:
+plaintext
+sNew = "abc"
+`
+
+Функция будет бесконечно заменять строку, так как "abc" будет снова в строке после первой замены, что приведёт к ошибке. В результате функция может зациклиться.
+
+7. 
+replaceAll`
+
+Вот программный код для рекурсивной версии функции, которая заменяет все вхождения одной подстроки на другую:
+
+def replace_all_recursive(s, old, new):
+    pos = s.find(old)
+    if pos == -1:
+        return s
+    return replace_all_recursive(s[:pos] + new + s[pos + len(old):], old, new)
+
+# Тест
+s = "abcdabc"
+old = "abc"
+new = "xyz"
+result = replace_all_recursive(s, old, new)
+print(result)  # Ожидается "xyzxyz"
+
+
+#### Сравнение:
+-
+Рекурсивная версия
+по своей природе может быть более понятной и простой для чтения.
+-
+Итеративная версия
+(если такая имеется) может быть более эффективной с точки зрения использования памяти, так как рекурсия может привести к увеличению стека вызовов.
+
+Рекомендация по выбору версии зависит от контекста. Для простых задач лучше использовать рекурсивный подход, однако итеративный путь будет предпочтительнее для больших строк, чтобы избежать переполнения стека.
+
+ 8.
+def change_file_extension(filename, new_extension):
+    if new_extension.startswith('.'):
+        new_extension = new_extension[1:]  # Удалить точку, если есть
+    name_parts = filename.rsplit('.', 1)  # Разделяем на имя и расширение
+    if len(name_parts) == 2:
+        return f"{name_parts[0]}.{new_extension}"
+    else:
+        return f"{filename}.{new_extension}"  # Добавляем расширение, если его не было
+
+# Пример использования
+filename = "example.txt"
+new_extension = "bak"
+result = change_file_extension(filename, new_extension)
+print(result)  # "example.bak"
+
+ 9. 
+
+def count_occurrences(s, word):
+    count = s.count(word)
+    return count
+
+# Пример использования
+string = "hello world, hello universe"
+word = "hello"
+result = count_occurrences(string, word)
+print(result)  # Ожидается 2
+
+
+10.
+
+def count_players_no_goals(players):
+    count = 0
+    for player in players:
+        parts = player.split()
+        birth_year = int(parts[2])
+        goals = int(parts[3])
+        if 1998 <= birth_year <= 2000 and goals == 0:
+            count += 1
+    return count
+
+# Пример использования
+N = int(input("Введите количество футболистов: "))
+players_info = [input("Введите информацию о футболисте: ") for _ in range(N)]
+result = count_players_no_goals(players_info)
+print(f"Количество футболистов, родившихся с 1998 по 2000 год и не забивших мячей: {result}")
+
+
+11.
+def top_scorer(players):
+    max_goals = -1
+    top_player = ""
+    for player in players:
+        parts = player.split()
+        goals = int(parts[3])
+        if goals > max_goals:
+            max_goals = goals
+            top_player = f"{parts[0]} {parts[1]}"
+    return top_player, max_goals
+
+# Пример использования
+result = top_scorer(players_info)
+print(f"Футболист с наибольшим количеством голов: {result[0]} с {result[1]} головами")
+
+
+12.
+def players_with_goals(players):
+    scorers = []
+    for player in players:
+        parts = player.split()
+        goals = int(parts[3])
+        if goals > 0:
+            scorers.append(f"{parts[0]} {parts[1]}")
+    return sorted(scorers)
+
+# Пример использования
+scorers_list = players_with_goals(players_info)
+print("Футболисты с хотя бы одним голом:")
+for player in scorers_list:
+    print(player)
+
+
+ 13.
+def recursive_permutation(current, k):
+    if len(current) == k:
+        print(current)
+        return
+    for char in "abcdefghijklmnopqrstuvwxyz":
+        recursive_permutation(current + char, k)
+
+# Ввод длины слова
+k = int(input("Введите длину слова: "))
+recursive_permutation("", k)
+
+
+14. 
+def words_with_y_count(k):
+    count = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    for word in itertools.product(alphabet, repeat=k):
+        word_str = ''.join(word)
+        if word_str.count('Ы') > 1:
+            print(word_str)
+            count += 1
+    return count
+
+# Пример использования
+k = int(input("Введите длину слова K: "))
+result = words_with_y_count(k)
+print(f"Количество таких слов: {result}")
+
+
+15. 
+
+def adjacent_repeating_letters(k):
+    count = 0
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    for word in itertools.product(alphabet, repeat=k):
+        word_str = ''.join(word)
+        if any(word_str[i] == word_str[i+1] for i in range(len(word_str) - 1)):
+            print(word_str)
+            count += 1
+    return count
+
+# Пример использования
+k = int(input("Введите длину слова K: "))
+result = adjacent_repeating_letters(k)
+print(f"Количество таких слов: {result}")
+
+
+16.
+def is_vowel(ch):
+    return ch in 'aeiou'
+
+def generate_words_no_adjacent_vowels(k, current="", last_char=""):
+    if len(current) == k:
+        print(current)
+        return
+    for char in 'abcdefghijklmnopqrstuvwxyz':
+        if not (is_vowel(last_char) and is_vowel(char)):
+            generate_words_no_adjacent_vowels(k, current + char, char)
+
+# Пример использования
+k = int(input("Введите длину слова K: "))
+generate_words_no_adjacent_vowels(k)
+
+
+ 17. 
+
+def non_recursive_permutations(k):
+    stack = [""]
+    results = []
+    
+    while stack:
+        current = stack.pop()
+        if len(current) == k:
+            results.append(current)
+        else:
+            for char in "abcdefghijklmnopqrstuvwxyz":
+                stack.append(current + char)
+    
+    for word in results:
+        print(word)
+
+# Пример использования
+k = int(input("Введите длину слова K: "))
+non_recursive_permutations(k)
+
+
+18. 
+
+def permutations(lst):
+    if len(lst) == 0:
+        return [[]]
+    result = []
+    for i in range(len(lst)):
+        remaining = lst[:i] + lst[i + 1:]
+        for p in permutations(remaining):
+            result.append([lst[i]] + p)
+    return result
+
+# Пример использования
+guests = ['A', 'B', 'C']
+all_permutations = permutations(guests)
+for perm in all_permutations:
+    print(' '.join(perm))

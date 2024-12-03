@@ -1,0 +1,60 @@
+1. 
+Алгоритм поиска называется двоичным, потому что он работает на отсортированном массиве, разделяя его на две половины. На каждом шаге алгоритм сравнивает искомый элемент с элементом в центре массива и в зависимости от результата сравнения отбрасывает половину массива, где искомый элемент не может находиться. Таким образом, процесс поиска происходит за логарифмическое количество шагов, что делает его очень эффективным для больших массивов.
+
+2. 
+Количество шагов при двоичном поиске можно подсчитать по формуле log2(n), где n — количество элементов в массиве. Это означает, что для массива из 32 элементов, максимальное количество шагов будет равно log2(32), что равно 5. Чем больше элементов в массиве, тем больше шагов потребуется, но этот рост будет значительно меньшим по сравнению с линейным поиском, который требует наихудшего случая n шагов.
+
+Задачи
+
+1. 
+def sort_and_find(array, target):
+    sorted_array = sorted(array, reverse=True)
+    occurrences = [index for index, value in enumerate(sorted_array) if value == target]
+    return sorted_array, occurrences
+
+array = [5, 2, 8, 1, 5, 3, 8, 5, 9]
+target_value = int(input("Введите число для поиска: "))
+sorted_array, found_indices = sort_and_find(array, target_value)
+
+print(f"Отсортированный массив по убыванию: {sorted_array}")
+if found_indices:
+    print(f"Значение {target_value} найдено на индексах: {found_indices}")
+else:
+    print(f"Значение {target_value} не найдено в массиве.")
+
+
+2.
+import random
+import math
+
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    steps = 0
+
+    while left <= right:
+        mid = (left + right) // 2
+        steps += 1
+        
+        if arr[mid] < target:
+            right = mid - 1
+        elif arr[mid] > target:
+            left = mid + 1
+        else:
+            return steps
+
+    return steps
+
+def average_binary_search_steps(size, trials):
+    total_steps = 0
+    for _ in range(trials):
+        array = sorted(random.sample(range(101), size))
+        target = random.randint(0, 100)
+        total_steps += binary_search(array, target)
+    
+    return total_steps / trials
+
+array_size = 32
+num_trials = 1000
+average_steps = average_binary_search_steps(array_size, num_trials)
+
+print(f"Среднее число шагов при двоичном поиске: {average_steps:.2f}")
