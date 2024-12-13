@@ -7,54 +7,34 @@
 Задачи
 
 1. 
-def sort_and_find(array, target):
-    sorted_array = sorted(array, reverse=True)
-    occurrences = [index for index, value in enumerate(sorted_array) if value == target]
-    return sorted_array, occurrences
+def sort_and_find(arr, target):
+    arr.sort(reverse=True)
+    return [x for x in arr if x == target]
 
-array = [5, 2, 8, 1, 5, 3, 8, 5, 9]
-target_value = int(input("Введите число для поиска: "))
-sorted_array, found_indices = sort_and_find(array, target_value)
-
-print(f"Отсортированный массив по убыванию: {sorted_array}")
-if found_indices:
-    print(f"Значение {target_value} найдено на индексах: {found_indices}")
-else:
-    print(f"Значение {target_value} не найдено в массиве.")
-
+arr = [34, 23, 12, 45, 56, 78, 34, 23]
+target = 34
+print(sort_and_find(arr, target))
 
 2.
 import random
-import math
 
-def binary_search(arr, target):
-    left, right = 0, len(arr) - 1
-    steps = 0
-
-    while left <= right:
-        mid = (left + right) // 2
-        steps += 1
-        
-        if arr[mid] < target:
-            right = mid - 1
-        elif arr[mid] > target:
-            left = mid + 1
-        else:
-            return steps
-
-    return steps
-
-def average_binary_search_steps(size, trials):
+def average_binary_search_steps():
+    arr = sorted(random.sample(range(101), 32))
     total_steps = 0
-    for _ in range(trials):
-        array = sorted(random.sample(range(101), size))
+    for _ in range(1000):
         target = random.randint(0, 100)
-        total_steps += binary_search(array, target)
-    
-    return total_steps / trials
+        left, right = 0, len(arr) - 1
+        steps = 0
+        while left <= right:
+            steps += 1
+            mid = (left + right) // 2
+            if arr[mid] == target:
+                break
+            elif arr[mid] < target:
+                right = mid - 1
+            else:
+                left = mid + 1
+        total_steps += steps
+    return total_steps / 1000
 
-array_size = 32
-num_trials = 1000
-average_steps = average_binary_search_steps(array_size, num_trials)
-
-print(f"Среднее число шагов при двоичном поиске: {average_steps:.2f}")
+print(average_binary_search_steps())

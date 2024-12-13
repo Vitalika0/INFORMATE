@@ -47,9 +47,6 @@ def calculate_average(input_filename, output_filename):
     with open(output_filename, 'w') as outfile:
         outfile.write(f"Среднее арифметическое: {average}\n")
 
-# Пример
-calculate_average('input.txt', 'output.txt')
-
 
 2.
 def find_min_max_even(input_filename, output_filename):
@@ -74,9 +71,6 @@ def find_min_max_even(input_filename, output_filename):
     with open(output_filename, 'w') as outfile:
         outfile.write(result + "\n")
 
-# Пример
-find_min_max_even('input.txt', 'output.txt')
-
 
 3.
 def longest_sequence_of_same_numbers(input_filename, output_filename):
@@ -98,9 +92,6 @@ def longest_sequence_of_same_numbers(input_filename, output_filename):
     with open(output_filename, 'w') as outfile:
         outfile.write(f"Длина самой длинной цепочки: {max_length}\n")
 
-# Пример
-longest_sequence_of_same_numbers('input.txt', 'output.txt')
-
 
 4.
 def sort_by_last_digit(input_filename, output_filename):
@@ -112,10 +103,6 @@ def sort_by_last_digit(input_filename, output_filename):
     with open(output_filename, 'w') as outfile:
         for number in numbers:
             outfile.write(f"{number}\n")
-
-# Пример
-sort_by_last_digit('input.txt', 'output.txt')
-
 
 5.
 def sum_of_digits(n):
@@ -131,10 +118,6 @@ def sort_by_digit_sum(input_filename, output_filename):
         for number in numbers:
             outfile.write(f"{number}\n")
 
-# Пример
-sort_by_digit_sum('input.txt', 'output.txt')
-
-
 6.
 def merge_sorted_files(file1, file2, output_file):
     with open(file1, 'r') as f1, open(file2, 'r') as f2:
@@ -146,10 +129,6 @@ def merge_sorted_files(file1, file2, output_file):
     with open(output_file, 'w') as outfile:
         for number in merged_numbers:
             outfile.write(f"{number}\n")
-
-# Пример
-merge_sorted_files('file1.txt', 'file2.txt', 'merged.txt')
-
 
 7.
 def handle_dog_data(input_filename, output_filename):
@@ -167,10 +146,6 @@ def handle_dog_data(input_filename, output_filename):
             except Exception as e:
                 print(f"Непредвиденная ошибка: {e}")
 
-# Пример
-handle_dog_data('dogs_input.txt', 'dogs_output.txt')
-
-
 8.
 def remove_fillers(input_filename, output_filename):
     with open(input_filename, 'r') as infile:
@@ -181,10 +156,6 @@ def remove_fillers(input_filename, output_filename):
     with open(output_filename, 'w') as outfile:
         outfile.write(filtered_text.strip() + "\n")
 
-# Пример
-remove_fillers('speech_input.txt', 'speech_output.txt')
-
-
 9.
 def count_words_in_file(input_filename):
     with open(input_filename, 'r') as infile:
@@ -193,10 +164,6 @@ def count_words_in_file(input_filename):
     word_count = len(text.split())
     print(f"Количество слов в файле: {word_count}")
 
-# Пример
-count_words_in_file('text_file.txt')
-
-
 10.
 def filter_lines_starting_with_a(input_filename, output_filename):
     with open(input_filename, 'r') as infile, open(output_filename, 'w') as outfile:
@@ -204,8 +171,6 @@ def filter_lines_starting_with_a(input_filename, output_filename):
             if any(word.startswith('А') for word in line.split()):
                 outfile.write(line)
 
-# Пример
-filter_lines_starting_with_a('input.txt', 'output.txt')
 
 11. 
 def filter_words_starting_with_a(input_filename, output_filename):
@@ -215,9 +180,6 @@ def filter_words_starting_with_a(input_filename, output_filename):
             for word in words:
                 if word.startswith('А') or word.startswith('а'):
                     outfile.write(word + "\n")
-
-# Пример использования
-filter_words_starting_with_a('input.txt', 'output_A_words.txt')
 
 
 12.
@@ -247,10 +209,6 @@ def filter_students_high_scores(input_filename, output_filename):
                 if score > 80:
                     outfile.write(f"{surname} {name}\n")
 
-# Пример использования
-filter_students_high_scores('exam_results.txt', 'high_score_students.txt')
-
-
 14. 
 def filter_students_with_numbers(input_filename, output_filename):
     with open(input_filename, 'r', encoding='utf-8') as infile, open(output_filename, 'w', encoding='utf-8') as outfile:
@@ -265,12 +223,8 @@ def filter_students_with_numbers(input_filename, output_filename):
                     outfile.write(f"{count}) {surname} {name}\n")
                     count += 1
 
-# Пример использования
-filter_students_with_numbers('exam_results.txt', 'numbered_high_score_students.txt')
 
-
-15. 
-
+15.
 def shorten_names(input_filename, output_filename):
     with open(input_filename, 'r', encoding='utf-8') as infile, open(output_filename, 'w', encoding='utf-8') as outfile:
         count = 1
@@ -284,9 +238,6 @@ def shorten_names(input_filename, output_filename):
                     shortened_name = f"{name[0]}."
                     outfile.write(f"{count}) {shortened_name} {surname}\n")
                     count += 1
-
-# Пример использования
-shorten_names('numbered_high_score_students.txt', 'shortened_names.txt')
 
 
 16.
@@ -303,9 +254,6 @@ def sort_by_surname(input_filename, output_filename):
     with open(output_filename, 'w', encoding='utf-8') as outfile:
         for student in sorted_students:
             outfile.write(student + "\n")
-
-# Пример использования
-sort_by_surname('shortened_names.txt', 'sorted_by_surname.txt')
 
 
  17. 
@@ -327,6 +275,3 @@ def sort_by_score_descending(input_filename, output_filename):
     with open(output_filename, 'w', encoding='utf-8') as outfile:
         for count, (surname, name, score) in enumerate(sorted_students, start=1):
             outfile.write(f"{count}) {surname} {name} - {score}\n")
-
-# Пример использования
-sort_by_score_descending('exam_results.txt', 'sorted_by_score_descending.txt')

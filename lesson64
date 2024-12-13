@@ -88,25 +88,26 @@ print(f"Sorted by last digit: {sorted_array}")
 def sum_of_digits(n):
     return sum(int(digit) for digit in str(n))
 
-def sort_by_digits_sum_desc(array):
-    return sorted(array, key=sum_of_digits, reverse=True)
+def sort_by_digit_sum(arr):
+    return sorted(arr, key=sum_of_digits, reverse=True)
 
-array = [23, 45, 12, 27, 5, 85]
-sorted_array = sort_by_digits_sum_desc(array)
-print(f"Sorted by sum of digits descending: {sorted_array}")
+arr = [34, 23, 12, 45, 56]
+print(sort_by_digit_sum(arr))
 
 
 6.
-def custom_sort(array):
-    mid = len(array) // 2
-    first_half = sorted(array[:mid])
-    second_half = sorted(array[mid:], reverse=True)
-    return first_half + second_half
+from random import randint
 
-array = [23, 45, 12, 27, 5, 85]
-sorted_array = custom_sort(array)
-print(f"Sorted array: {sorted_array}")
 
+def swap_adjacent(arr):
+    for i in range(0, len(arr) - 1, 2):
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+    return arr
+
+
+array = [randint(0, 10) for _ in range(10)]
+print("Исходный массив: ", array)
+print("Массив после перестановки: ", swap_adjacent(array)) 
 
 7.
 def sort_and_find_max_repeated(array):

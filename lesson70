@@ -55,7 +55,6 @@ import math
 def f(x):
     return x2 - 5 * math.cos(x - 1)
 
-# Метод перебора
 def method_of_enumeration(a, b, step):
     x = a
     solutions = []
@@ -65,7 +64,7 @@ def method_of_enumeration(a, b, step):
         x += step
     return solutions
 
-# Метод деления отрезка пополам
+
 def bisection_method(a, b, epsilon):
     if f(a) * f(b) >= 0:
         raise ValueError("Условие для метода деления отрезка пополам не выполнено.")
